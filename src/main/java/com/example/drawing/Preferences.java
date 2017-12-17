@@ -6,15 +6,15 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Created by Alex on 15/12/2017.
+ * Created by Alex on 16/12/2017.
  */
 public class Preferences {
 
     public static final String DEFAULT_BACKGROUND = " ";
-    public static final int DEFAULT_CANVAS_WIDTH = 20;
+    public static final int DEFAULT_CANVAS_WIDTH = 10;
     public static final int DEFAULT_CANVAS_HEIGHT = 5;
     public static final String QUIT_COMMAND = "Q";
-    public static final List<Action> FUNCTIONS = Arrays.asList(
+    public static final List<Tool> TOOLS = Arrays.asList(
             new Canvas(),
             new Line(),
             new Rectangle(),

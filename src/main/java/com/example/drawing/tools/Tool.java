@@ -7,7 +7,7 @@ import java.util.Map;
 /**
  * Created by Alex on 17/12/2017.
  */
-public interface Action {
+public interface Tool {
 
     boolean parse(String userInput);
     boolean validate();

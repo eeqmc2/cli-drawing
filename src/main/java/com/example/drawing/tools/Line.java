@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 /**
  * Created by Alex on 10/12/2017.
  */
-public class Line implements Action {
+public class Line implements Tool {
 
     private final String command = "[L]\\s\\d+\\s\\d+\\s\\d+\\s\\d+";
     private String marker = "x";

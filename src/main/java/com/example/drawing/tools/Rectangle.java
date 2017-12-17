@@ -9,16 +9,13 @@ import java.util.regex.Pattern;
 /**
  * Created by Alex on 10/12/2017.
  */
-public class Rectangle implements Action {
+public class Rectangle implements Tool {
 
     private final String command = "[R]\\s\\d+\\s\\d+\\s\\d+\\s\\d+";
 
     private String symbol = "x";
     private Coords pt1;
     private Coords pt2;
-
-    public Rectangle() {
-    }
 
 
     @Override

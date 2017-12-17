@@ -9,45 +9,17 @@ import java.util.regex.Pattern;
 /**
  * Created by Alex on 10/12/2017.
  */
-public class BucketFill implements Action {
+public class BucketFill implements Tool {
 
-    private final String command = "[B]\\s\\d+\\s\\d+\\s\\w";
+    private final String command = "[B]\\s\\d+\\s\\d+\\s.";
 
     private Image image;
     private Coords pt;
     private String marker = "";
 
-    public BucketFill() {
-    }
-
-    public BucketFill(String command) {
-
-        String[] args = command.split(" ");
-        this.pt = new Coords(Integer.parseInt(args[1]), Integer.parseInt(args[2]));
-        this.marker = args[3];
-
-    }
-
     // Getters and Setters
-    public Image getImage() {
-        return image;
-    }
     public void setImage(Image image) {
         this.image = image;
-    }
-
-    public Coords getPt() {
-        return pt;
-    }
-    public void setPt(Coords pt) {
-        this.pt = pt;
-    }
-
-    public String getMarker() {
-        return marker;
-    }
-    public void setMarker(String marker) {
-        this.marker = marker;
     }
 
     @Override
@@ -56,6 +28,7 @@ public class BucketFill implements Action {
         Pattern pattern = Pattern.compile(command, Pattern.CASE_INSENSITIVE);
         if (pattern.matcher(input).matches()) {
             String[] args = input.split(" ");
+            this.image = new Image();
             this.pt = new Coords(Integer.parseInt(args[1]), Integer.parseInt(args[2]));
             this.marker = args[3];
 
@@ -74,16 +47,11 @@ public class BucketFill implements Action {
     }
 
     @Override
-    public Map<Coords, String> execute()
-    {
-        return null;
-    }
+    public Map<Coords, String> execute() {
 
-    public Map<Coords, String> execute(Coords coord, String newPixel) {
-
-        String oldPixel = image.getPixels().get(coord) == null ?
-                image.getBackground() : image.getPixels().get(coord);
-        execute(coord, newPixel, oldPixel);
+        String oldPixel = image.getPixels().get(pt) == null ?
+                image.getBackground() : image.getPixels().get(pt);
+        execute(pt, marker, oldPixel);
         return image.getPixels();
     }
 

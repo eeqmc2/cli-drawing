@@ -1,35 +1,37 @@
 package com.example.drawing;
 
 
+import com.example.drawing.tools.Canvas;
 import org.junit.Test;
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 
 import static org.junit.Assert.assertEquals;
 
 public class DrawingToolTest {
 
     @Test
-    public void acceptAllSampleCommands() {
+    public void shouldTrimLeadingTrailingSpacesInCommand() {
 
         DrawingTool dt = new DrawingTool();
-        String userCommand = "C 20 4";
-        System.setIn(new ByteArrayInputStream(userCommand.getBytes()));
-        assertEquals(userCommand, dt.getUserCommand());
+        String actualCommand = " C 20 4 ";
+        String expectedCommand = "C 20 4";
+        System.setIn(new ByteArrayInputStream(actualCommand.getBytes()));
+        assertEquals(expectedCommand, dt.getUserCommand());
     }
 
     @Test
-    public void shouldAcceptValidCanvasCommand() {
-
+    public void acceptValidCanvasCommand() {
         DrawingTool dt = new DrawingTool();
-        String command = "C 20 4";
+        String command = "C 20 14";
         assertEquals(true, dt.parse(command));
     }
 
     @Test
-    public void shouldRejectInvalidCanvasCommand() {
-
+    public void rejectInvalidCanvasCommand() {
         DrawingTool dt = new DrawingTool();
-        String command = "C 20";
+        String command = "C 20 14 5";
         assertEquals(false, dt.parse(command));
     }
 
@@ -64,41 +66,33 @@ public class DrawingToolTest {
         String command = "B 10 3";
         assertEquals(false, dt.parse(command));
     }
-/*
+
     @Test
     public void shouldAcceptValidQuitCommand() {
 
         DrawingTool dt = new DrawingTool();
-        String command = "Q";
-        assertEquals(true, dt.parse(command));
-    }
-*/
-    @Test
-    public void shouldRejectInvalidQuitCommand() {
+        String quitCommand = "Q";
+        System.setIn(new ByteArrayInputStream(quitCommand.getBytes()));
+        assertEquals(true, dt.start());
 
-        DrawingTool dt = new DrawingTool();
-        String command = "Q 10";
-        assertEquals(false, dt.parse(command));
     }
 
     @Test
-    public void canSetDrawings() {
+    public void canDrawMultipleShapes() {
 
-        String initialCanvas = "-----\r\n|   |\r\n|   |\r\n|   |\r\n|   |\r\n-----\r\n";
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+
+        String expectedOutput = "----------------------\r\n" +
+                                "|oooooooooooooxxxxxoo|\r\n" +
+                                "|xxxxxxooooooox   xoo|\r\n" +
+                                "|     xoooooooxxxxxoo|\r\n" +
+                                "|     xoooooooooooooo|\r\n" +
+                                "----------------------\r\n";
+
         DrawingTool dt = new DrawingTool();
-        //dt.setDrawing(initialCanvas);
-        //assertEquals(initialCanvas, dt.getDrawing());
-    }
-
-    @Test
-    public void canDrawOverTopOfDrawing() {
-
-        DrawingTool dt = new DrawingTool();
-
-        /*
         String userCommand = "C 20 4";
         dt.parse(userCommand);
-
 
         userCommand = "L 1 2 6 2";
         dt.parse(userCommand);
@@ -109,14 +103,11 @@ public class DrawingToolTest {
         userCommand = "R 14 1 18 3";
         dt.parse(userCommand);
 
-        //userCommand = "R 12 1 16 4";
-        //dt.parse(userCommand);
-*/
-        String userCommand = "B 10 3 o";
+        userCommand = "B 10 3 o";
         dt.parse(userCommand);
 
-        dt.getImage().print();
-
+        dt.print();
+        assertEquals(expectedOutput, outContent.toString());
     }
 
 }

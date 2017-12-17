@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 /**
  * Created by Alex on 10/12/2017.
  */
-public class Canvas implements Action {
+public class Canvas implements Tool {
 
     private final String command = "[C]\\s\\d+\\s\\d+";
     private final String vertical_marker = "|";
@@ -18,19 +18,12 @@ public class Canvas implements Action {
     private int width;
     private int height;
 
-    // Getters and Setters
+    // Getters
     public int getWidth() {
         return width;
     }
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
     public int getHeight() {
         return height;
-    }
-    public void setHeight(int height) {
-        this.height = height;
     }
 
     @Override

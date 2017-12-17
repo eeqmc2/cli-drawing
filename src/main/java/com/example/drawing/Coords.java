@@ -1,7 +1,7 @@
 package com.example.drawing;
 
 /**
- * Created by Alex on 10/12/2017.
+ * Created by Alex on 16/12/2017.
  */
 public class Coords {
 
@@ -13,20 +13,12 @@ public class Coords {
         this.y = y;
     }
 
+    // Getters
     public int getX() {
         return x;
     }
-
-    public void setX(int x) {
-        this.x = x;
-    }
-
     public int getY() {
         return y;
-    }
-
-    public void setY(int y) {
-        this.y = y;
     }
 
     @Override

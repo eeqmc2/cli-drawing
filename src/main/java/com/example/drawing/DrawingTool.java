@@ -1,8 +1,6 @@
 package com.example.drawing;
 
-import com.example.drawing.tools.Action;
-import com.example.drawing.tools.BucketFill;
-import com.example.drawing.tools.Canvas;
+import com.example.drawing.tools.Tool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,11 +21,6 @@ public class DrawingTool {
         this.image = new Image();
     }
 
-
-    public Image getImage() {
-        return image;
-    }
-
     /**
      *  Prompt users for command line input from console
      *
@@ -37,7 +30,11 @@ public class DrawingTool {
 
         Scanner scanner = new Scanner(System.in);
         System.out.print("enter command: ");
-        return scanner.nextLine();
+        return scanner.nextLine().trim();
+    }
+
+    public void print() {
+        image.print();
     }
 
     /**
@@ -45,40 +42,45 @@ public class DrawingTool {
      *
      * @param userInput
      *
-     * @return true if the command is valid command, otherwise false
+     * @return true if the command is a valid command, otherwise false
      */
     public boolean parse(String userInput) {
 
-        for (Action action : Preferences.FUNCTIONS) {
-            if (action.parse(userInput)) {
-                if (action instanceof Canvas) {
-                    image.setCanvas((Canvas)action);
-                    image.draw(action.execute());
-                } else if (action instanceof BucketFill) {
-                    BucketFill bf = new BucketFill(userInput);
-                    bf.setImage(image);
-                    image.draw(bf.execute(bf.getPt(), bf.getMarker()));
-                } else
-                    image.draw(action.execute());
+        for (Tool tool : Preferences.TOOLS) {
+            if (tool.parse(userInput)) {
+                image.draw(tool);
                 return true;
             }
         }
         return false;
     }
 
-    public static void main(String[] args)  {
+    /**
+     * Prompts the user for to input commands
+     * @return true when user enters the quit command
+     */
+    public boolean start() {
 
-        DrawingTool dt = new DrawingTool();
         String userInput = "";
         while (!QUIT_COMMAND.equals(userInput))
         {
-            userInput = dt.getUserCommand().trim();
-            boolean success = dt.parse(userInput);
+            userInput = getUserCommand();
+            boolean success = parse(userInput);
             if (success) {
-                dt.getImage().print();
+                image.print();
             } else {
-                logger.warn("Unable to recognise command");
+                logger.warn(String.format(
+                        "Unable to recognise command, please retry or type '%s' to quit",
+                        Preferences.QUIT_COMMAND));
             }
         }
+        return true;
     }
+
+    public static void main(String[] args)  {
+
+        DrawingTool dt = new DrawingTool();
+        dt.start();
+    }
+
 }
