@@ -1,8 +1,6 @@
 package com.example.drawing;
 
 import com.example.drawing.tools.Tool;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.Scanner;
 
@@ -13,7 +11,6 @@ import static com.example.drawing.Preferences.QUIT_COMMAND;
  */
 public class DrawingTool {
 
-    private final static Logger logger = LoggerFactory.getLogger(DrawingTool.class);
     private Image image;
 
     public DrawingTool() {
@@ -28,18 +25,22 @@ public class DrawingTool {
     public boolean start() {
 
         String userInput = "";
+        do {
+            userInput = getUserCommand();
+            boolean success = paint(userInput);
+            if (success)
+                image.print();
+        } while (!QUIT_COMMAND.equals(userInput));
+
+        /*
         while (!QUIT_COMMAND.equals(userInput))
         {
             userInput = getUserCommand();
             boolean success = paint(userInput);
             if (success) {
                 image.print();
-            } else {
-                logger.warn(String.format(
-                        "Unable to recognise command, please retry or type '%s' to quit",
-                        Preferences.QUIT_COMMAND));
             }
-        }
+        }*/
         return true;
     }
 
@@ -50,8 +51,8 @@ public class DrawingTool {
      */
     public String getUserCommand() {
 
+        System.out.println("enter command: ");
         Scanner scanner = new Scanner(System.in);
-        System.out.print("enter command: ");
         return scanner.nextLine().trim();
     }
 
