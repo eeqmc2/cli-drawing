@@ -11,8 +11,8 @@ import java.util.List;
 public class Preferences {
 
     public static final String DEFAULT_BACKGROUND = " ";
-    public static final Integer DEFAULT_CANVAS_WIDTH = 10;
-    public static final Integer DEFAULT_CANVAS_HEIGHT = 5;
+    public static final Integer DEFAULT_CANVAS_WIDTH = 20;
+    public static final Integer DEFAULT_CANVAS_HEIGHT = 10;
     public static final String QUIT_COMMAND = "Q";
     public static final List<Tool> TOOLS = Arrays.asList(
             new Canvas(),
