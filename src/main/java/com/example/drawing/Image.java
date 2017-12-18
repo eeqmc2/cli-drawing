@@ -18,30 +18,18 @@ public class Image {
 
     private Map<Coords, String> pixels;
     private String background;
-    private int width;
-    private int height;
+    private Canvas canvas;
 
     public Image() {
         this.pixels = new HashMap<>();
         this.background = DEFAULT_BACKGROUND;
-        this.width = DEFAULT_CANVAS_WIDTH;
-        this.height = DEFAULT_CANVAS_HEIGHT;
-    }
-
-    public void draw(Tool tool) {
-        if (tool instanceof Canvas) {
-            this.width = ((Canvas) tool).getWidth();
-            this.height = ((Canvas) tool).getHeight();
-        } else if (tool instanceof BucketFill) {
-            ((BucketFill) tool).setImage(this);
-        }
-        Map<Coords, String> shape = tool.execute();
-        pixels.putAll(shape);
+        canvas  = new Canvas(DEFAULT_CANVAS_WIDTH, DEFAULT_CANVAS_HEIGHT);
+        pixels.putAll(canvas.execute());
     }
 
     public void print() {
-        for (int h = 0; h <= height + 1; h++) {
-            for (int w = 0; w <= width + 1; w++) {
+        for (int h = 0; h <= canvas.getHeight() + 1; h++) {
+            for (int w = 0; w <= canvas.getWidth() + 1; w++) {
                 Coords c = new Coords(w,h);
                 if (pixels.containsKey(c)) {
                     System.out.print(pixels.get(c));
@@ -53,18 +41,24 @@ public class Image {
         }
     }
 
-    // Getters
+    // Getters and Setters
     public Map<Coords, String> getPixels() {
         return pixels;
     }
-    public int getWidth() {
-        return width;
+
+    public void setPixels(Map<Coords, String> pixels) {
+        this.pixels = pixels;
     }
-    public int getHeight() {
-        return height;
-    }
+
     public String getBackground() {
         return background;
     }
 
+    public Canvas getCanvas() {
+        return canvas;
+    }
+
+    public void setCanvas(Canvas canvas) {
+        this.canvas = canvas;
+    }
 }

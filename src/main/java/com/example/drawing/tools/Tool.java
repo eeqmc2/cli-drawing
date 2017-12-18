@@ -1,6 +1,7 @@
 package com.example.drawing.tools;
 
 import com.example.drawing.Coords;
+import com.example.drawing.Image;
 
 import java.util.Map;
 
@@ -9,8 +10,10 @@ import java.util.Map;
  */
 public interface Tool {
 
+
     boolean parse(String userInput);
     boolean validate();
-    Map<Coords, String> execute();
+    Image execute(Image image);
+
 
 }

@@ -1,6 +1,7 @@
 package com.example.drawing.tools;
 
 import com.example.drawing.Coords;
+import com.example.drawing.Image;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -46,8 +47,9 @@ public class Rectangle implements Tool {
     }
 
     @Override
-    public Map<Coords, String> execute() {
+    public Image execute(Image image) {
 
+        // Construct rectangle with lines
         Coords upperLeft = new Coords(pt1.getX(), pt1.getY());
         Coords upperRight = new Coords(pt2.getX(), pt1.getY());
         Coords lowerLeft = new Coords(pt1.getX(), pt2.getY());
@@ -64,7 +66,8 @@ public class Rectangle implements Tool {
         result.putAll(right.execute());
         result.putAll(bottom.execute());
 
-        return result;
+        image.setPixels(result);
+        return image;
     }
 }
 

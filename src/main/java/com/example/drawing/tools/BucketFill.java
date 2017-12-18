@@ -14,13 +14,9 @@ public class BucketFill implements Tool {
     private final String command = "[B]\\s\\d+\\s\\d+\\s.";
 
     private Image image;
-    private Coords pt;
+    private Coords target;
     private String marker = "";
 
-    // Getters and Setters
-    public void setImage(Image image) {
-        this.image = image;
-    }
 
     @Override
     public boolean parse(String input) {
@@ -29,7 +25,7 @@ public class BucketFill implements Tool {
         if (pattern.matcher(input).matches()) {
             String[] args = input.split(" ");
             this.image = new Image();
-            this.pt = new Coords(Integer.parseInt(args[1]), Integer.parseInt(args[2]));
+            this.target = new Coords(Integer.parseInt(args[1]), Integer.parseInt(args[2]));
             this.marker = args[3];
 
             return validate();
@@ -40,35 +36,37 @@ public class BucketFill implements Tool {
     @Override
     public boolean validate() {
         // Coordinates must be positive
-        if (pt.getX() <=0 || pt.getY() <=0)
+        if (target.getX() <=0 || target.getY() <=0)
             return false;
         else
             return true;
     }
 
     @Override
-    public Map<Coords, String> execute() {
+    public Image execute(Image image) {
 
-        String oldPixel = image.getPixels().get(pt) == null ?
-                image.getBackground() : image.getPixels().get(pt);
-        execute(pt, marker, oldPixel);
-        return image.getPixels();
+        this.image = image;
+        String currPixel = image.getPixels().get(target);
+        currPixel = currPixel == null ? image.getBackground() : currPixel;
+        execute(target, marker, currPixel);
+        return image;
     }
 
-    private void execute(Coords c, String newPixel, String oldPixel) {
+    private void execute(Coords c, String newPixel, String currPixel) {
 
         // Check coords are within boundaries
         if (c.getX() <= 0 || c.getY() <= 0) return;
-        if (c.getX() > image.getWidth() || c.getY() > image.getHeight()) return;
+        if (c.getX() > image.getCanvas().getWidth()) return;
+        if (c.getY() > image.getCanvas().getHeight()) return;
 
         String replacePixel = image.getPixels().get(c) == null ? image.getBackground() : image.getPixels().get(c);
-        if (oldPixel.equals(replacePixel)) {
+        if (currPixel.equals(replacePixel)) {
 
             image.getPixels().put(c, newPixel);
-            execute(new Coords(c.getX() - 1, c.getY()), newPixel, oldPixel);
-            execute(new Coords(c.getX() + 1, c.getY()), newPixel, oldPixel);
-            execute(new Coords(c.getX(), c.getY() - 1), newPixel, oldPixel);
-            execute(new Coords(c.getX(), c.getY() + 1), newPixel, oldPixel);
+            execute(new Coords(c.getX() - 1, c.getY()), newPixel, currPixel);
+            execute(new Coords(c.getX() + 1, c.getY()), newPixel, currPixel);
+            execute(new Coords(c.getX(), c.getY() - 1), newPixel, currPixel);
+            execute(new Coords(c.getX(), c.getY() + 1), newPixel, currPixel);
         }
     }
 }

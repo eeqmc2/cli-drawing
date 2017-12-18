@@ -48,11 +48,22 @@ public class DrawingTool {
 
         for (Tool tool : Preferences.TOOLS) {
             if (tool.parse(userInput)) {
-                image.draw(tool);
+                draw(tool);
                 return true;
             }
         }
         return false;
+    }
+
+
+    public void draw(Tool tool) {
+        /*if (tool instanceof Canvas) {
+            canvas  = ((Canvas) tool);
+        }*/
+
+        //Map<Coords, String> shape = tool.execute(this);
+        //pixels.putAll(shape);
+        this.image = tool.execute(image);
     }
 
     /**

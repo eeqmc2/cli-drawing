@@ -8,6 +8,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class DrawingToolTest {
 
@@ -25,14 +27,14 @@ public class DrawingToolTest {
     public void acceptValidCanvasCommand() {
         DrawingTool dt = new DrawingTool();
         String command = "C 20 14";
-        assertEquals(true, dt.parse(command));
+        assertTrue(dt.parse(command));
     }
 
     @Test
     public void rejectInvalidCanvasCommand() {
         DrawingTool dt = new DrawingTool();
         String command = "C 20 14 5";
-        assertEquals(false, dt.parse(command));
+        assertFalse(dt.parse(command));
     }
 
     @Test
@@ -40,7 +42,7 @@ public class DrawingToolTest {
 
         DrawingTool dt = new DrawingTool();
         String command = "L 1 2 6 2";
-        assertEquals(true, dt.parse(command));
+        assertTrue(dt.parse(command));
     }
 
     @Test
@@ -48,15 +50,15 @@ public class DrawingToolTest {
 
         DrawingTool dt = new DrawingTool();
         String command = "L 1 2 6";
-        assertEquals(false, dt.parse(command));
+        assertFalse(dt.parse(command));
     }
 
     @Test
     public void shouldAcceptValidBucketFillCommand() {
 
         DrawingTool dt = new DrawingTool();
-        String command = "B 10 3 o";
-        assertEquals(true, dt.parse(command));
+        String command = "B 6 3 o";
+        assertTrue(dt.parse(command));
     }
 
     @Test
@@ -64,7 +66,7 @@ public class DrawingToolTest {
 
         DrawingTool dt = new DrawingTool();
         String command = "B 10 3";
-        assertEquals(false, dt.parse(command));
+        assertFalse(dt.parse(command));
     }
 
     @Test
@@ -73,7 +75,7 @@ public class DrawingToolTest {
         DrawingTool dt = new DrawingTool();
         String quitCommand = "Q";
         System.setIn(new ByteArrayInputStream(quitCommand.getBytes()));
-        assertEquals(true, dt.start());
+        assertTrue(dt.start());
 
     }
 

@@ -1,6 +1,7 @@
 package com.example.drawing.tools;
 
 import com.example.drawing.Coords;
+import com.example.drawing.Image;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,14 +16,22 @@ public class Canvas implements Tool {
     private final String vertical_marker = "|";
     private final String horizontal_marker = "-";
 
-    private int width;
-    private int height;
+    private Integer width;
+    private Integer height;
+
+    public Canvas() {
+    }
+
+    public Canvas(int width, int height) {
+        this.width = width;
+        this.height = height;
+    }
 
     // Getters
-    public int getWidth() {
+    public Integer getWidth() {
         return width;
     }
-    public int getHeight() {
+    public Integer getHeight() {
         return height;
     }
 
@@ -50,7 +59,7 @@ public class Canvas implements Tool {
     }
 
     @Override
-    public Map<Coords, String> execute() {
+    public Image execute(Image image) {
 
         Map<Coords, String> result = new HashMap<>();
         for (int h = 0; h <= height + 1; h++) {
@@ -66,7 +75,9 @@ public class Canvas implements Tool {
                 }
             }
         }
-        return result;
+        image.setPixels(result);
+        image.setCanvas(new Canvas(width, height));
+        return image;
     }
 }
 

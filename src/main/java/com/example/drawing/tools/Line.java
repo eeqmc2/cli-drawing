@@ -2,6 +2,7 @@ package com.example.drawing.tools;
 
 
 import com.example.drawing.Coords;
+import com.example.drawing.Image;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -61,7 +62,7 @@ public class Line implements Tool {
     }
 
     @Override
-    public Map<Coords, String> execute() {
+    public Image execute(Image image) {
 
         Map<Coords, String> result = new HashMap<>();
         // Plot Vertical Line
@@ -84,6 +85,7 @@ public class Line implements Tool {
                     result.put(new Coords(i, pt1.getY()), marker);
             }
         }
-        return result;
+        image.setPixels(result);
+        return image;
     }
 }
