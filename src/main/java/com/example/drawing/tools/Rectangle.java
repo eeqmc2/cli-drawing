@@ -3,12 +3,11 @@ package com.example.drawing.tools;
 import com.example.drawing.Coords;
 import com.example.drawing.Image;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
 
 /**
- * Created by Alex on 10/12/2017.
+ * Class to support drawing rectangles
  */
 public class Rectangle implements Tool {
 
@@ -47,7 +46,7 @@ public class Rectangle implements Tool {
     }
 
     @Override
-    public Image execute(Image image) {
+    public Image draw(Image image) {
 
         // Construct rectangle with lines
         Coords upperLeft = new Coords(pt1.getX(), pt1.getY());
@@ -60,11 +59,12 @@ public class Rectangle implements Tool {
         Line right = new Line(upperRight, lowerRight, symbol);
         Line bottom = new Line(lowerLeft,lowerRight, symbol);
 
-        Map<Coords, String> result = new HashMap<>();
-        result.putAll(top.execute());
-        result.putAll(left.execute());
-        result.putAll(right.execute());
-        result.putAll(bottom.execute());
+        //Add the 4 lines into Map
+        Map<Coords, String> result = image.getPixels();
+        result.putAll(top.draw(image).getPixels());
+        result.putAll(left.draw(image).getPixels());
+        result.putAll(right.draw(image).getPixels());
+        result.putAll(bottom.draw(image).getPixels());
 
         image.setPixels(result);
         return image;

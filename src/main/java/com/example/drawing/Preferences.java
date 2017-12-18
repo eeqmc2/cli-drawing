@@ -21,4 +21,6 @@ public class Preferences {
             new BucketFill()
     );
 
+    public static final String NOT_A_STRAIGHT_LINE_ERROR = "Line is not a straight line";
+
 }

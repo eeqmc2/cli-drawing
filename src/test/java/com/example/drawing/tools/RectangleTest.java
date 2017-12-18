@@ -1,14 +1,12 @@
 package com.example.drawing.tools;
 
-import com.example.drawing.Image;
+import com.example.drawing.DrawingTool;
 import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 /**
  * Created by Alex on 16/12/2017.
@@ -57,20 +55,18 @@ public class RectangleTest {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
 
-        String expectedOutput = "            \r\n" +
-                                "            \r\n" +
-                                "     xxxxx  \r\n" +
-                                "     x   x  \r\n" +
-                                "     x   x  \r\n" +
-                                "     xxxxx  \r\n" +
-                                "            \r\n";
+        String expectedOutput = "------------\r\n" +
+                                "|          |\r\n" +
+                                "|    xxxxx |\r\n" +
+                                "|    x   x |\r\n" +
+                                "|    x   x |\r\n" +
+                                "|    xxxxx |\r\n" +
+                                "------------\r\n";
 
         // Draw Rectangle
-        Image image = new Image();
-        Rectangle rect = new Rectangle();
-        rect.parse("R 5 2 9 5");
-        image.draw(rect);
-        image.print();
+        DrawingTool dt = new DrawingTool();
+        dt.paint("R 5 2 9 5");
+        dt.print();
         assertEquals(expectedOutput, outContent.toString());
     }
 }

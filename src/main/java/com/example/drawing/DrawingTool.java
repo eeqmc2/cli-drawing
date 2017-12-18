@@ -14,11 +14,33 @@ import static com.example.drawing.Preferences.QUIT_COMMAND;
 public class DrawingTool {
 
     private final static Logger logger = LoggerFactory.getLogger(DrawingTool.class);
-
     private Image image;
 
     public DrawingTool() {
         this.image = new Image();
+    }
+
+    /**
+     * Prompts the user for to input commands
+     *
+     * @return true when user enters the quit command
+     */
+    public boolean start() {
+
+        String userInput = "";
+        while (!QUIT_COMMAND.equals(userInput))
+        {
+            userInput = getUserCommand();
+            boolean success = paint(userInput);
+            if (success) {
+                image.print();
+            } else {
+                logger.warn(String.format(
+                        "Unable to recognise command, please retry or type '%s' to quit",
+                        Preferences.QUIT_COMMAND));
+            }
+        }
+        return true;
     }
 
     /**
@@ -33,10 +55,6 @@ public class DrawingTool {
         return scanner.nextLine().trim();
     }
 
-    public void print() {
-        image.print();
-    }
-
     /**
      *  Validates string command
      *
@@ -44,48 +62,22 @@ public class DrawingTool {
      *
      * @return true if the command is a valid command, otherwise false
      */
-    public boolean parse(String userInput) {
+    public boolean paint(String userInput) {
 
         for (Tool tool : Preferences.TOOLS) {
             if (tool.parse(userInput)) {
-                draw(tool);
+                image = tool.draw(image);
                 return true;
             }
         }
         return false;
     }
 
-
-    public void draw(Tool tool) {
-        /*if (tool instanceof Canvas) {
-            canvas  = ((Canvas) tool);
-        }*/
-
-        //Map<Coords, String> shape = tool.execute(this);
-        //pixels.putAll(shape);
-        this.image = tool.execute(image);
-    }
-
     /**
-     * Prompts the user for to input commands
-     * @return true when user enters the quit command
+     * Prints the Image to Console
      */
-    public boolean start() {
-
-        String userInput = "";
-        while (!QUIT_COMMAND.equals(userInput))
-        {
-            userInput = getUserCommand();
-            boolean success = parse(userInput);
-            if (success) {
-                image.print();
-            } else {
-                logger.warn(String.format(
-                        "Unable to recognise command, please retry or type '%s' to quit",
-                        Preferences.QUIT_COMMAND));
-            }
-        }
-        return true;
+    public void print() {
+        image.print();
     }
 
     public static void main(String[] args)  {

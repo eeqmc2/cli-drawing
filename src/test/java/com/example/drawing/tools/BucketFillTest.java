@@ -1,17 +1,13 @@
 package com.example.drawing.commands;
 
-import com.example.drawing.Image;
+import com.example.drawing.DrawingTool;
 import com.example.drawing.tools.BucketFill;
-import com.example.drawing.tools.Canvas;
-import com.example.drawing.tools.Rectangle;
 import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 /**
  * Created by Alex on 16/12/2017.
@@ -68,20 +64,18 @@ public class BucketFillTest {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
 
-        String expectedOutput = "            \r\n" +
-                                " ?????????? \r\n" +
-                                " ?????????? \r\n" +
-                                " ?????????? \r\n" +
-                                " ?????????? \r\n" +
-                                " ?????????? \r\n" +
-                                "            \r\n";
+        String expectedOutput = "------------\r\n" +
+                "|??????????|\r\n" +
+                "|??????????|\r\n" +
+                "|??????????|\r\n" +
+                "|??????????|\r\n" +
+                "|??????????|\r\n" +
+                "------------\r\n";
 
         // Draw Rectangle
-        Image image = new Image();
-        BucketFill bf = new BucketFill();
-        bf.parse("B 1 3 ?");
-        image.draw(bf);
-        image.print();
+        DrawingTool dt = new DrawingTool();
+        dt.paint("B 1 3 ?");
+        dt.print();
         assertEquals(expectedOutput, outContent.toString());
     }
 }

@@ -1,16 +1,13 @@
 package com.example.drawing.tools;
 
 
-import com.example.drawing.Image;
-
+import com.example.drawing.DrawingTool;
 import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 /**
  * Created by Alex on 16/12/2017.
@@ -59,11 +56,9 @@ public class CanvasTest {
                                 "-----\r\n";
 
         // Draw Canvas
-        Image image = new Image();
-        Canvas c = new Canvas();
-        c.parse("C 3 4");
-        image.draw(c);
-        image.print();
+        DrawingTool dt = new DrawingTool();
+        dt.paint("C 3 4");
+        dt.print();
         assertEquals(expectedOutput, outContent.toString());
     }
 }

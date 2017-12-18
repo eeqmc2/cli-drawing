@@ -13,14 +13,6 @@ public class Coords {
         this.y = y;
     }
 
-    // Getters
-    public int getX() {
-        return x;
-    }
-    public int getY() {
-        return y;
-    }
-
     @Override
     public int hashCode() {
         int result = x;
@@ -46,5 +38,13 @@ public class Coords {
                 "x=" + x +
                 ", y=" + y +
                 '}';
+    }
+
+    // Getters
+    public int getX() {
+        return x;
+    }
+    public int getY() {
+        return y;
     }
 }
