@@ -1,5 +1,13 @@
 # Simple Command Line Drawing Tool
 
+## Prerequisites
+
+The code has been developed and tested using:
+
+  JDK 1.8
+  Apache Maven 3.5.0
+
+
 ## Quickstart
 
 Build your project with:

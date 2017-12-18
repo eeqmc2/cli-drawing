@@ -24,15 +24,7 @@ public class DrawingTool {
      */
     public boolean start() {
 
-        String userInput = "";
-        do {
-            userInput = getUserCommand();
-            boolean success = paint(userInput);
-            if (success)
-                image.print();
-        } while (!QUIT_COMMAND.equals(userInput));
-
-        /*
+        String userInput = null;
         while (!QUIT_COMMAND.equals(userInput))
         {
             userInput = getUserCommand();
@@ -40,7 +32,7 @@ public class DrawingTool {
             if (success) {
                 image.print();
             }
-        }*/
+        }
         return true;
     }
 

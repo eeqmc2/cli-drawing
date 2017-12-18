@@ -35,10 +35,10 @@ public class Rectangle implements Tool {
 
     @Override
     public boolean validate() {
-        // First Coordinates must be positive
+        // First Coordinates must be greater than 0
         if (pt1.getX() <=0 || pt1.getY() <=0)
             return false;
-        // Second Coordinates must be positive
+        // Second Coordinates must be greater than 0
         else if (pt2.getX() <=0 || pt2.getY() <=0)
             return false;
         else
@@ -54,10 +54,10 @@ public class Rectangle implements Tool {
         Coords lowerLeft = new Coords(pt1.getX(), pt2.getY());
         Coords lowerRight = new Coords(pt2.getX(), pt2.getY());
 
-        Line top = new Line(upperLeft,upperRight, symbol);
-        Line left = new Line(upperLeft,lowerLeft, symbol);
+        Line top = new Line(upperLeft, upperRight, symbol);
+        Line left = new Line(upperLeft, lowerLeft, symbol);
         Line right = new Line(upperRight, lowerRight, symbol);
-        Line bottom = new Line(lowerLeft,lowerRight, symbol);
+        Line bottom = new Line(lowerLeft, lowerRight, symbol);
 
         //Add the 4 lines into Map
         Map<Coords, String> result = image.getPixels();

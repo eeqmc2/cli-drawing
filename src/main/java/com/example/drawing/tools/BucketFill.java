@@ -34,7 +34,7 @@ public class BucketFill implements Tool {
 
     @Override
     public boolean validate() {
-        // Coordinates must be positive
+        // Coordinates must be greater than zero
         if (target.getX() <=0 || target.getY() <=0)
             return false;
         else
