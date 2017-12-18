@@ -21,7 +21,7 @@ Build your project skipping the tests:
 
 To run the program:
 
-  mvn exec:java -Dexec.mainClass=com.example.drawing.DrawingTool
+	mvn exec:java -Dexec.mainClass=com.example.drawing.DrawingTool
 
 
 ## Assumptions
