@@ -28,7 +28,7 @@ To run the program:
 
   Drawing program will:
   
-  1. Apply a default 20 by 10 canvas if the user have not specify one
+  1. Apply a default 10 by 5 canvas if the user have not specify one
   Rationale:
   * Program was designed to be as user-accomodating as possible, does not state specifically canvas must be set first.
   * This mimic closely the behavior with Windows paint (e.g. default white empty canvas)
