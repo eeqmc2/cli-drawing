@@ -99,7 +99,12 @@ public class Line implements Tool {
         return image;
     }
 
-    // Return the max (truncated) coordinates within the Canvas
+    /**
+     * Return the coordinates (truncated) within the Canvas
+     * @param x     arbitrary x or y point
+     * @param max   the upper limit of the canvas dimension
+     * @return      the close point within the Canvas
+     */
     public int getCoordsWithinCanvas(int x, int max) {
         if (x > max) return max;
         else if (x < 1) return 1;
